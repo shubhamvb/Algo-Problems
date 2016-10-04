@@ -1,0 +1,69 @@
+/*
+Given an array of strings, group anagrams together.
+
+For example, given: ["eat", "tea", "tan", "ate", "nat", "bat"],
+Return:
+
+[
+  ["ate", "eat","tea"],
+  ["nat","tan"],
+  ["bat"]
+]
+*/
+
+public class Solution {
+    public List<List<String>> groupAnagrams(String[] arr) {
+        
+        
+        char c[] = {'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'};
+        int a[] = {2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97, 101};
+
+        int k = 0;
+        int product = 1;
+
+        HashMap<Character,Integer> hm = new HashMap<>();
+        LinkedHashMap<Integer,List<String>> hm1 = new LinkedHashMap<Integer,List<String>>();
+
+        for( int i = 0 ; i < 26 ; i++ )
+        {
+            hm.put( c[i] , a[i] );
+
+        }
+
+        for( int i = 0 ; i < arr.length ; i++ )
+        {
+            product = 1;
+
+            for( int j = 0 ; j < arr[i].length() ; j++ )
+            {
+                product *= hm.get( arr[i].charAt(j) );
+            }
+
+            if( !hm1.containsKey( product ))
+            {
+                List<String> l = new ArrayList<>();
+                l.add(arr[i] );
+                hm1.put(product,l);
+            }
+            else
+            {
+                List<String> l = hm1.get( product );
+                l.add(arr[i] );
+                //System.out.println( l );
+                hm1.put(product,l);
+            }
+
+        }
+
+        List<List<String>>  nestedList = new ArrayList<List<String>>() ;
+        List<String> l = new ArrayList<>();
+        
+        for( int i : hm1.keySet() )
+        {
+            l = hm1.get( i );
+            nestedList.add( l );
+        }
+        return nestedList;
+        
+    }
+}
