@@ -1,0 +1,75 @@
+/*
+Given a sorted array of integers, find the starting and ending position of a given target value.
+Your algorithm's runtime complexity must be in the order of O(log n).
+
+If the target is not found in the array, return [-1, -1].
+
+For example,
+Given [5, 7, 7, 8, 8, 10] and target value 8,
+return [3, 4]. 
+*/
+
+public class Solution {
+    public int[] searchRange(int[] nums, int target) {
+        
+        int returnArray[] = {-1,-1};
+        int temp = binarySearch( nums, 0 , nums.length - 1 , target );
+        if( temp == -1 )
+            return returnArray;
+            
+        System.out.println( temp );
+        int temp1 = temp;
+        int start = temp;
+        int end = temp;
+        
+        while( temp < nums.length )
+        {
+            if( nums[temp] == target )
+            {
+                end = temp;
+                temp++;
+            }
+            else
+                break;
+                
+        }
+        while( temp1 >= 0 )
+        {
+            if( nums[temp1] == target )
+            {
+                start = temp1;
+                temp1--;
+            }
+            else 
+                break;
+                
+        }
+        
+        System.out.println( start +" " + end );
+        returnArray[0] = start;
+        returnArray[1] = end;
+        
+        return returnArray;
+    }
+    
+    public int binarySearch(int arr[], int l, int r, int x)
+        {
+            if (r >= l)
+            {
+                int mid = l + (r - l)/2;
+
+                if (arr[mid] == x)  
+                    return mid;
+                
+                if (arr[mid] > x) 
+                {
+                    return binarySearch(arr, l, mid-1, x);   
+                }
+
+                return binarySearch(arr, mid+1, r, x);
+            }
+
+            return -1;
+        }
+    
+}
