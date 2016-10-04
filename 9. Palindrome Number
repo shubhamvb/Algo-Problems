@@ -1,0 +1,32 @@
+/*
+Determine whether an integer is a palindrome. Do this without extra space.
+*/
+
+public class Solution {
+    public boolean isPalindrome(int x) {
+        int num = x;
+        if( num < 0 )
+            return false;
+        Stack<Integer> mystack = new Stack<>();
+        Queue<Integer> q = new LinkedList<Integer>();
+        
+        int rem = 0;
+
+        while( num > 0 )
+        {
+            rem = num % 10 ;
+            q.add(rem);
+            mystack.push(rem);
+            num /= 10;
+        }
+        
+        while(!q.isEmpty() && !mystack.isEmpty())
+        {
+            if(q.poll() != mystack.pop())
+                return false;
+        }
+        
+        return true;
+        
+    }
+}
