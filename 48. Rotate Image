@@ -1,0 +1,41 @@
+/*
+You are given an n x n 2D matrix representing an image.
+
+Rotate the image by 90 degrees (clockwise).
+
+Follow up:
+Could you do this in-place?
+*/
+
+public class Solution {
+    public void rotate(int[][] matrix) {
+        
+        int row = matrix.length ;
+        int column = matrix.length ;
+        int[][] returnMatrix = new int[row][column];
+        int x = 0;
+        
+        for( int i = 0 ; i < matrix.length ; i++ )
+        {
+            int y = column - 1 - i;
+            for( int j = 0 ; j < matrix[0].length ; j++ )
+            {
+                x = j ;
+                returnMatrix[ x ][ y ] = matrix[ i ][ j ];  
+            }
+        }
+        
+        for( int i = 0 ; i < returnMatrix.length ; i++ )
+        {
+            for( int j = 0 ; j < returnMatrix[0].length ; j++ )
+            {
+                matrix[i][j] = returnMatrix[i][j];
+                
+            }
+            System.out.println();
+        }
+        
+        
+        
+    }
+}
