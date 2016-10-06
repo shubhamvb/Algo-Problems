@@ -1,0 +1,21 @@
+/*
+Implement int sqrt(int x).
+Compute and return the square root of x.
+*/
+
+public class Solution {
+    public int mySqrt(int x) {
+        
+        long num =  x;
+        long y = 1;
+        
+        while( num > y )
+        {
+            num = (num + y) / 2;
+            y = x /num ;
+        }
+        
+        return (int)num;
+        
+    }
+}
