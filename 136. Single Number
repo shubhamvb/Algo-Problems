@@ -1,0 +1,33 @@
+/*
+Given an array of integers, every element appears twice except for one. Find that single one.
+
+Note:
+Your algorithm should have a linear runtime complexity. Could you implement it without using extra memory? 
+*/
+
+public class Solution {
+    public int singleNumber(int[] nums) {
+        
+        long xor = 1;
+        int max = nums[0],min = nums[0];
+        for( int i : nums )
+        {
+            xor ^= i;
+            if( i > max )
+                max = i;
+            else if( i < min )
+                min = i;
+        }
+
+        for( int i = min ; i <= max ; i++ )
+        {
+            long val = xor ^ i;
+            if( val == (long)1 )
+                return i;
+                //System.out.print( i );
+        }
+        
+        return -1;
+        
+    }
+}
