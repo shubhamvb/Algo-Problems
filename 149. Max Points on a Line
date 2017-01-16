@@ -1,0 +1,74 @@
+/*
+Given n points on a 2D plane, find the maximum number of points that lie on the same straight line.
+*/
+
+/**
+ * Definition for a point.
+ * class Point {
+ *     int x;
+ *     int y;
+ *     Point() { x = 0; y = 0; }
+ *     Point(int a, int b) { x = a; y = b; }
+ * }
+ */
+public class Solution {
+    public int maxPoints(Point[] points) {
+        
+        if( points.length == 0 )
+            return 0;
+            
+        if( areAllPointsSame( points ) ) 
+            return points.length;
+            
+        int maxPoints = 1;
+        for( int i=0 ; i<points.length-1 ; i++ )
+        {
+            HashMap<Double,Integer> hm = new HashMap<>();
+            int repeatedPoints = 0;
+            int localMaxPoints = 1;
+            double slope = 0;
+            for( int j=i+1 ; j<points.length ; j++ )
+            {
+                
+                if( points[i].x == points[j].x && points[i].y == points[j].y )
+                {
+                    repeatedPoints++;
+                    continue;
+                }    
+                else if( points[j].y == points[i].y )
+                    slope = 0.0;
+                else if( points[j].x == points[i].x )
+                    slope = (double) Integer.MAX_VALUE;
+                else
+                    slope = (double) ( points[j].y - points[i].y ) / ( points[j].x - points[i].x ) ;
+                    
+                if( hm.containsKey(slope) )
+                    hm.put( slope , hm.get(slope)+1  );
+                else
+                    hm.put( slope , 2 );
+            }
+            
+            for( Integer val : hm.values() )
+            {
+                localMaxPoints = Math.max( localMaxPoints , val );
+            }
+            localMaxPoints += repeatedPoints;
+            maxPoints = Math.max( maxPoints , localMaxPoints );
+            System.out.println( hm );
+        }
+        
+        return maxPoints;
+        
+    }
+    
+    private boolean areAllPointsSame( Point[] points )
+    {
+        for( int i=1 ; i<points.length ; i++ )
+        {
+            if( points[i].x != points[0].x || points[i].y != points[0].y )
+                return false;
+        }
+        return true;
+    }
+    
+}
