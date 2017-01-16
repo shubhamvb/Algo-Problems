@@ -1,0 +1,60 @@
+/*
+Given a linked list, return the node where the cycle begins. If there is no cycle, return null.
+
+Note: Do not modify the linked list.
+
+Follow up:
+Can you solve it without using extra space?
+*/
+
+/**
+ * Definition for singly-linked list.
+ * class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode(int x) {
+ *         val = x;
+ *         next = null;
+ *     }
+ * }
+ */
+public class Solution {
+    public ListNode detectCycle(ListNode head) {
+        
+        ListNode first = head;
+        ListNode meetingPoint = nodesMeetAt(head);
+        ListNode result = null;
+        if( meetingPoint == null )
+            return result;
+        
+        while( first != meetingPoint )
+        {
+            first = first.next;
+            meetingPoint = meetingPoint.next;
+        }
+        
+        return first;
+        
+    }
+    
+    private ListNode nodesMeetAt(ListNode head)
+    {
+        ListNode first = head ,  second = head;
+        ListNode result = null;
+        int counter = 0;
+        while( first != null && first.next != null )
+        {
+            if( first == second )
+                counter++;
+                
+            if( counter == 2 )
+                return first;
+                
+            first = first.next.next;
+            second =  second.next;
+            
+            
+        }
+        return result;
+    }
+}
