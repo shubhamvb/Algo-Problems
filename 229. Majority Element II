@@ -24,7 +24,7 @@ public class Solution {
             {
                 count1++;
             }
-            else if(nums[i] == element1)
+            else if(nums[i] == element2)
             {
                 count2++;
             }
