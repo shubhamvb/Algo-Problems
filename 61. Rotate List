@@ -16,22 +16,22 @@ return 4->5->1->2->3->NULL.
  */
 public class Solution {
     public ListNode rotateRight(ListNode head, int k) {
-        int counter= 0;
+        
         if(head == null || k==0)
             return head;
-            
         ListNode first = head, second = head;
         
-        for(int i=0; i<k; i++)
-        {
-           if(first.next == null)
-                first = head;
-            else
+        int length = calcLength(first); 
+        
+        first = head;
+        int shift = k % length;
+        if(shift == 0)
+            return head;
+       
+       
+        for(int i=0; i<shift; i++){
                 first = first.next;
         }
-        
-        if(first == null || first == second)
-            return head;
         
             
         while(first.next != null)
@@ -45,4 +45,15 @@ public class Solution {
         
         return newHead;
     }
+    
+    private int calcLength(ListNode first)
+    {
+        int length = 0;
+        while(first != null)
+        {
+            length++;
+            first = first.next;
+        }
+        return length; 
+    } 
 }
