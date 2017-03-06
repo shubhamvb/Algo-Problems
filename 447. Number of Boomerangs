@@ -1,0 +1,58 @@
+/*
+Given n points in the plane that are all pairwise distinct, a "boomerang" is a tuple of points (i, j, k) 
+such that the distance between i and j equals the distance between i and k (the order of the tuple matters).
+
+Find the number of boomerangs. You may assume that n will be at most 500 and coordinates of points are all 
+in the range [-10000, 10000] (inclusive).
+
+Example:
+
+Input:
+[[0,0],[1,0],[2,0]]
+
+Output:
+2
+
+Explanation:
+The two boomerangs are [[1,0],[0,0],[2,0]] and [[1,0],[2,0],[0,0]]
+
+*/
+
+
+public class Solution {
+    public int numberOfBoomerangs(int[][] points) {
+        if(points == null || points.length == 0)
+            return 0;
+            
+        int m = points.length;
+        int n = points[0].length;
+        int count = 0;
+        for(int i=0; i<m; i++)
+        {
+            HashMap<Integer, Integer> hm = new HashMap<>();
+            for(int j=0; j<m; j++)
+            {
+                if(i==j)
+                    continue;
+                int dist = getDist(points[i], points[j]);
+                hm.put(dist, hm.getOrDefault(dist, 0)+1);
+            }
+            
+            for(Integer value : hm.values())
+            {
+                count += value * (value-1);
+            }
+        }
+        
+        return count;
+        
+    }
+    
+    private int getDist(int[] a, int[] b)
+    {
+        if(a == null || b == null || a.length == 0 || b.length == 0 || a.length != b.length)
+            return 0;
+        int dist = (b[0]-a[0]) * (b[0]-a[0]) + (b[1]-a[1]) * (b[1]-a[1]);
+        return dist;
+    }
+}
