@@ -1,0 +1,55 @@
+/*
+Given a List of words, 
+return the words that can be typed using letters of alphabet on only one row's of American keyboard like the image below.
+
+Example 1:
+Input: ["Hello", "Alaska", "Dad", "Peace"]
+Output: ["Alaska", "Dad"]
+Note:
+You may use one character in the keyboard more than once.
+You may assume the input string will only contain letters of alphabet.
+*/
+
+public class Solution {
+    public String[] findWords(String[] words) {
+        String arr[] = {"QWERTYUIOP","ASDFGHJKL","ZXCVBNM"};
+        HashMap<Character, Integer> hm = new HashMap<>();
+        List<String> list = new ArrayList<>();
+        //boolean addTolist = false;
+        for(int i=0; i<arr.length; i++)
+        {
+            for(int j=0; j<arr[i].length(); j++)
+            {
+                hm.put(arr[i].charAt(j), i);
+            }
+        }
+        
+        for(int i=0; i<words.length; i++)
+        {
+            if(words[i] == null || words[i].length() == 0)
+                continue;
+            boolean addToList = true;
+            int index = hm.get(words[i].toUpperCase().charAt(0));
+            for(int j=0; j<words[i].length(); j++)
+            {
+                System.out.println("here");
+                if(hm.get(words[i].toUpperCase().charAt(j)) != index)
+                 {
+                     addToList = false;
+                     break;
+                 }   
+            }
+            
+            if(addToList)
+                list.add(words[i]);
+            
+        }
+        
+        String returnArray[] = new String[list.size()];
+        for(int i=0; i<returnArray.length; i++)
+            returnArray[i] = list.get(i);
+            
+        return returnArray;
+        
+    }
+}
