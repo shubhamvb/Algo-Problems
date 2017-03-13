@@ -7,27 +7,13 @@ Your algorithm should have a linear runtime complexity. Could you implement it w
 
 public class Solution {
     public int singleNumber(int[] nums) {
+        int xor = 0;
         
-        long xor = 1;
-        int max = nums[0],min = nums[0];
-        for( int i : nums )
+        for(int i=0; i<nums.length; i++)
         {
-            xor ^= i;
-            if( i > max )
-                max = i;
-            else if( i < min )
-                min = i;
+            xor ^= nums[i];
         }
-
-        for( int i = min ; i <= max ; i++ )
-        {
-            long val = xor ^ i;
-            if( val == (long)1 )
-                return i;
-                //System.out.print( i );
-        }
-        
-        return -1;
-        
+        return xor;
+         
     }
 }
