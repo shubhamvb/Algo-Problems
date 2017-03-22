@@ -1,0 +1,54 @@
+/*
+Given two non-negative integers num1 and num2 represented as string, return the sum of num1 and num2.
+
+Note:
+
+    The length of both num1 and num2 is < 5100.
+    Both num1 and num2 contains only digits 0-9.
+    Both num1 and num2 does not contain any leading zero.
+    You must not use any built-in BigInteger library or convert the inputs to integer directly.
+
+*/
+
+public class Solution {
+    public String addStrings(String num1, String num2) {
+        
+        String s1 = new StringBuilder(num1).reverse().toString();
+        String s2 = new StringBuilder(num2).reverse().toString();
+      
+        StringBuilder sb = new StringBuilder();
+        int i=0;
+        int sum = 0, carry = 0, mod = 0;
+        while(i<s1.length() || i<s2.length()){
+            
+            if(i<s1.length() && i<s2.length()){
+               
+                sum = s1.charAt(i) - '0' + s2.charAt(i) - '0' + carry;
+                carry = sum / 10;
+                mod = sum % 10;               
+                sb.insert(0,mod);
+                
+            }
+            else if(i<s1.length()){
+                sum = s1.charAt(i) - '0' + carry;
+                carry = sum / 10;
+                mod = sum % 10;               
+                sb.insert(0,mod);
+                
+            }
+            else{
+                sum = s2.charAt(i) - '0' + carry;
+                carry = sum / 10;
+                mod = sum % 10;               
+                sb.insert(0,mod);
+            }
+            i++;
+        }
+        
+        if(carry>0)
+            sb.insert(0,carry);
+        
+        return sb.toString();
+        
+    }
+}
