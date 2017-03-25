@@ -1,0 +1,56 @@
+/*
+Suppose an array sorted in ascending order is rotated at some pivot unknown to you beforehand.
+
+(i.e., 0 1 2 4 5 6 7 might become 4 5 6 7 0 1 2).
+
+Write a function to determine if a given target is in the array.
+
+The array may contain duplicates.
+*/
+
+public class Solution {
+    public boolean search(int[] nums, int target) {
+        if(nums.length == 0)
+            return false;
+    
+        if(nums.length == 1)
+            if(nums[0] == target)
+                return true;
+            else 
+                return false;
+    
+        int pivotIndex = findPivot(nums, 0, nums.length-1);
+        return binarySearch(nums, pivotIndex+1, nums.length-1, target) || binarySearch(nums, 0, pivotIndex, target);
+        
+    }
+    
+    private int findPivot(int nums[], int left, int right)
+    {
+        
+        for(int i = 0; i < nums.length - 1; i++)
+        {
+            if(nums[i] > nums[i+1])
+                return i;
+        }
+        return 0;
+    }
+    
+    private boolean binarySearch(int nums[], int left, int right, int target)
+    {
+        while(left <= right)
+        {   
+            int mid = (left + right) / 2;
+            System.out.println(mid);
+            if(nums[mid] == target)
+                return true;
+            if(target > nums[mid])
+                left = mid + 1;
+            if(target < nums[mid])
+                right = mid - 1; 
+        }
+        return false;
+    }
+        
+    }
+
+
