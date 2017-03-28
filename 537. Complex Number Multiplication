@@ -30,8 +30,14 @@ public class Solution {
         String num1[] = a.split("\\+");
         String num2[] = b.split("\\+");
         
+        
         String nums1[] = num1[1].split("i");
         String nums2[] = num2[1].split("i");
+        
+        //alternatively to avoding splitting tiwce we can do simething like
+        // a.split("\\+|i");
+        // b.split("\\+|i");
+        
         num1[1] = nums1[0];
         num2[1] = nums2[0];
         
