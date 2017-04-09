@@ -1,0 +1,61 @@
+/*
+ Given a 2D board and a word, find if the word exists in the grid.
+
+The word can be constructed from letters of sequentially adjacent cell, where "adjacent" cells are those horizontally or vertically neighboring. The same letter cell may not be used more than once.
+
+For example,
+Given board =
+
+[
+  ['A','B','C','E'],
+  ['S','F','C','S'],
+  ['A','D','E','E']
+]
+
+word = "ABCCED", -> returns true,
+word = "SEE", -> returns true,
+word = "ABCB", -> returns false.
+*/
+
+public class Solution {
+    public boolean exist(char[][] board, String word) {
+        
+        if(board == null || board.length == 0)
+            return false;
+            
+        int m = board.length;
+        int n = board[0].length;
+        for(int i=0; i<m; i++)
+        {
+            for(int j=0; j<n; j++)
+            {
+                if(traverse(i, j, board, word, 0, m, n))
+                    return true;
+            }
+        }
+        return false;
+        
+    }
+    
+    private boolean traverse(int i, int j, char[][] board, String word, int k, int m, int n)
+    {
+        if(i<0 || j<0 || i>=m || j>=n)
+            return false;
+        if(board[i][j] != word.charAt(k))
+            return false;
+        else
+        {
+            char temp = board[i][j];
+            board[i][j] = 'V';
+            if(k == word.length()-1)
+                return true;
+            else if(traverse(i+1, j, board, word, k+1, m, n) || 
+                    traverse(i-1, j, board, word, k+1, m, n) || 
+                    traverse(i, j+1, board, word, k+1, m, n) || 
+                    traverse(i, j-1, board, word, k+1, m, n))
+                    return true;
+            board[i][j] = temp;
+        }
+        return false; 
+    }
+}
