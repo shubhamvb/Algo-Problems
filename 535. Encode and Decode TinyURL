@@ -1,0 +1,48 @@
+/*
+TinyURL is a URL shortening service where you enter a URL such as https://leetcode.com/problems/design-tinyurl and it returns
+a short URL such as http://tinyurl.com/4e9iAk.
+
+Design the encode and decode methods for the TinyURL service. There is no restriction on how your encode/decode algorithm 
+should work. 
+You just need to ensure that a URL can be encoded to a tiny URL and the tiny URL can be decoded to the original URL.
+*/
+
+
+public class Codec {
+    
+    HashMap<String, String> shortToLongUrl = new HashMap<>();
+    HashMap<String, String> longToShortUrl = new HashMap<>();
+    String base = "http://tinyurl.com/";
+    String randomString = "QWERTYUIOPASDFGHJKLZXCVBNMqwertyuiopasdfghjklzxcvbnm0123456789";
+    
+    // Encodes a URL to a shortened URL.
+    public String encode(String longUrl) 
+    {
+        Random random = new Random();
+        int len = randomString.length();
+        StringBuilder encodedString = new StringBuilder();
+        for(int i=0; i<6; i++)
+            encodedString.append(randomString.charAt(random.nextInt(len)));
+        
+        
+        String shortUrl = new String(base + encodedString.toString());   
+        
+        if(shortToLongUrl.containsKey(shortUrl))
+            encode(longUrl);
+        else
+        {
+            shortToLongUrl.put(shortUrl, longUrl);
+            longToShortUrl.put(longUrl, shortUrl);
+        }
+        return shortUrl;
+    }
+
+    // Decodes a shortened URL to its original URL.
+    public String decode(String shortUrl) {
+        return shortToLongUrl.get(shortUrl);
+    }
+}
+
+// Your Codec object will be instantiated and called as such:
+// Codec codec = new Codec();
+// codec.decode(codec.encode(url));
