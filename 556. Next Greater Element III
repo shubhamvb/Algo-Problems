@@ -1,0 +1,67 @@
+/*
+Given a positive 32-bit integer n, you need to find the smallest 32-bit integer which has exactly the same digits existing
+in the integer n and is greater in value than n. If no such positive 32-bit integer exists, you need to return -1.
+
+Example 1:
+Input: 12
+Output: 21
+Example 2:
+Input: 21
+Output: -1
+*/
+
+public class Solution {
+    public int nextGreaterElement(int n) {
+        if(n == Integer.MAX_VALUE)
+            return -1;
+        
+        char[] num = (n + "").toCharArray();
+        int p = -1, q = -1;
+        for(int i = num.length-2; i >= 0; i--)
+            if(num[i] < num[i+1])
+            {
+                p = i;
+                break;
+            }
+     
+        if(p == -1)
+            return -1;
+        
+        for(int i = num.length-1; i > p; i--)
+            if(num[i] > num[p])
+            {
+                q = i;
+                break;
+            }
+       
+        if(q == -1)
+            return -1;
+            
+        swap(num, p, q);
+        reverse(num, p+1, num.length-1);
+        
+        String s = new String(num);
+        if(Long.parseLong(s) <= Integer.MAX_VALUE)
+            return (int)Long.parseLong(s);
+        else
+            return -1;
+        
+    }
+    
+    private void swap(char[] num, int i, int j)
+    {
+        char temp = num[i];
+        num[i] = num[j];
+        num[j] = temp;
+    }
+    
+    private void reverse(char[] num, int i, int j)
+    {
+        while(i < j)
+        {
+            swap(num, i, j);
+            i++;
+            j--;
+        }
+    }
+}
