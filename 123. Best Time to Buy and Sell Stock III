@@ -24,7 +24,7 @@ public class Solution {
         {
             maxProfit = Math.max(maxProfit, left[i]+right[i]);
         }
-        
+           
         return maxProfit;
     }
     
