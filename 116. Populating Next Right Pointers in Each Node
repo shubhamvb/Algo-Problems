@@ -27,7 +27,8 @@ Given the following perfect binary tree,
 
 After calling your function, the tree should look like:
 
-         1 -> NULL
+         1 -> NULL. 
+         
        /  \
       2 -> 3 -> NULL
      / \  / \
