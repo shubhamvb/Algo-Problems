@@ -27,7 +27,7 @@ public class Solution {
                 list.add(result.get(j-1) + result.get(j));
             list.add(1);
             result = list;
-            System.out.println(result);
+           
         }
         
         return result;
