@@ -1,0 +1,82 @@
+/*
+Given two non-empty binary trees s and t, check whether tree t has exactly the same structure and node values with a subtree of s. A subtree of s is a tree consists of a node in s and all of this node's descendants.
+The tree s could also be considered as a subtree of itself.
+*/
+
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+public class Solution {
+    public boolean isSubtree(TreeNode s, TreeNode t) {
+        if(s == null && t == null)
+            return true;
+        if(s == null || t == null)
+            return false;
+            
+        TreeNode current = s;    
+        Stack<TreeNode> stack = new Stack<>();
+        stack.push(current);
+        
+        while(!stack.isEmpty())
+        {
+            TreeNode temp = stack.pop();
+            System.out.println(temp.val);
+            if(temp.val == t.val)
+                if(validateSameTree(temp, t))
+                    return true;
+            if(temp.right != null)
+                stack.push(temp.right);
+            if(temp.left != null)
+                stack.push(temp.left);
+            
+        }
+        return false;
+    }
+    
+    private boolean validateSameTree(TreeNode a, TreeNode b)
+    {
+       
+        if(a == null && b == null)
+            return true;
+        if(a == null || b == null)
+            return false;
+        Stack<TreeNode> stack1 = new Stack<>();
+        Stack<TreeNode> stack2 = new Stack<>();
+        stack1.push(a);
+        stack2.push(b);
+        
+        while(!stack1.isEmpty() && !stack2.isEmpty())
+        {
+            TreeNode temp1 = stack1.pop();
+            TreeNode temp2 = stack2.pop();
+            
+            if(temp1.val != temp2.val)
+                return false;
+            
+            if(temp1.right != null && temp2.right != null)
+            {
+                stack1.push(temp1.right);
+                stack2.push(temp2.right);
+            }
+            else if(temp1.right != null || temp2.right != null)
+                return false;
+               
+            if(temp1.left != null && temp2.left != null)
+            {
+                stack1.push(temp1.left);
+                stack2.push(temp2.left);
+            }
+            else if(temp1.left != null || temp2.left != null)
+                return false;
+            
+        }
+        return true;
+        
+    }
+}
