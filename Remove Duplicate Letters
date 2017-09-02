@@ -40,7 +40,6 @@ class Solution {
         
         }
         return sb.toString();
-        
     }
     
     private int getSmallestIndex(HashMap<Character, Integer> hm)
