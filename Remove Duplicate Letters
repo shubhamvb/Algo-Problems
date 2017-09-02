@@ -1,0 +1,54 @@
+/*
+Given a string which contains only lowercase letters, remove duplicate letters so that every letter appear once and only once. You must make sure your result is the smallest in lexicographical order among all possible results.
+
+Example:
+Given "bcabc"
+Return "abc"
+
+Given "cbacdcbc"
+Return "acdb"
+*/
+
+class Solution {
+    public String removeDuplicateLetters(String s) {
+        if(s == null || s.length() == 0)
+            return s; 
+          
+        HashMap<Character, Integer> hm = new HashMap<>();
+        for(int i=0; i<s.length(); i++)
+            hm.put(s.charAt(i), i);
+        int start = 0;
+        int end = getSmallestIndex(hm);
+        StringBuffer sb = new StringBuffer();
+        int index = 0;
+        
+        while(!hm.isEmpty())
+        {  
+            char curr = 'z' + 1;
+            for(int i=start; i<=end; i++)
+            {
+                if(s.charAt(i) < curr && hm.containsKey(s.charAt(i)))
+                {
+                    curr = s.charAt(i);
+                    index = i;
+                }                   
+            }      
+          sb.append(curr);
+          hm.remove(curr);            
+          start = index+1;
+          end =  getSmallestIndex(hm);
+        
+        }
+        return sb.toString();
+        
+    }
+    
+    private int getSmallestIndex(HashMap<Character, Integer> hm)
+    {
+        int min = Integer.MAX_VALUE;
+        for(Integer i : hm.values())
+            min = Math.min(min, i);
+        
+        return min;
+    }
+}
